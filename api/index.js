@@ -52,6 +52,10 @@ app.get('/profile', (req, res) => {
   });
 });
 
+app.post('/logout', (req, res) => {
+  res.cookie('token', '').json('ok');
+})
+
 app.listen(4000)
 
 //mongodb+srv://blog:aoY64cVWGkX6aOuv@cluster0.dwvfo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
