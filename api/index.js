@@ -10,15 +10,17 @@ const cookieParser = require('cookie-parser')
 const multer = require('multer')
 const uploadMiddleware = multer({ dest: 'uploads/' })
 const fs = require('fs')
+const dotenv = require('dotenv');
 
 const salt = bcrypt.genSaltSync(10);
-const secret = 'asgfs565sdgt4sgfh4f63d3htthg'
 
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
+dotenv.config();
 
-mongoose.connect("mongodb+srv://blog:aoY64cVWGkX6aOuv@cluster0.dwvfo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+const secret = process.env.SECRET
+mongoose.connect(process.env.MONGO)
 
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
@@ -83,7 +85,3 @@ app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
 })
 
 app.listen(4000)
-
-//mongodb+srv://blog:aoY64cVWGkX6aOuv@cluster0.dwvfo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-
-//blog aoY64cVWGkX6aOuv
